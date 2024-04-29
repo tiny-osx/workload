@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyOS.Build.Device", "TinyOS.Build.Device\TinyOS.Build.Device.csproj", "{D0D61E39-C4D3-45C2-94A1-15C1839C3744}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyOS.NET.Sdk", "TinyOS.NET.Sdk\TinyOS.NET.Sdk.csproj", "{3D522DC3-2D9E-4A46-B201-46743C4125A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|arm64 = Debug|arm64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|arm64 = Release|arm64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0D61E39-C4D3-45C2-94A1-15C1839C3744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0D61E39-C4D3-45C2-94A1-15C1839C3744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0D61E39-C4D3-45C2-94A1-15C1839C3744}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{D0D61E39-C4D3-45C2-94A1-15C1839C3744}.Debug|arm64.Build.0 = Debug|Any CPU
+		{D0D61E39-C4D3-45C2-94A1-15C1839C3744}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D0D61E39-C4D3-45C2-94A1-15C1839C3744}.Debug|x86.Build.0 = Debug|Any CPU
+		{D0D61E39-C4D3-45C2-94A1-15C1839C3744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0D61E39-C4D3-45C2-94A1-15C1839C3744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0D61E39-C4D3-45C2-94A1-15C1839C3744}.Release|arm64.ActiveCfg = Release|Any CPU
+		{D0D61E39-C4D3-45C2-94A1-15C1839C3744}.Release|arm64.Build.0 = Release|Any CPU
+		{D0D61E39-C4D3-45C2-94A1-15C1839C3744}.Release|x86.ActiveCfg = Release|Any CPU
+		{D0D61E39-C4D3-45C2-94A1-15C1839C3744}.Release|x86.Build.0 = Release|Any CPU
+		{3D522DC3-2D9E-4A46-B201-46743C4125A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D522DC3-2D9E-4A46-B201-46743C4125A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D522DC3-2D9E-4A46-B201-46743C4125A8}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{3D522DC3-2D9E-4A46-B201-46743C4125A8}.Debug|arm64.Build.0 = Debug|Any CPU
+		{3D522DC3-2D9E-4A46-B201-46743C4125A8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3D522DC3-2D9E-4A46-B201-46743C4125A8}.Debug|x86.Build.0 = Debug|Any CPU
+		{3D522DC3-2D9E-4A46-B201-46743C4125A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D522DC3-2D9E-4A46-B201-46743C4125A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D522DC3-2D9E-4A46-B201-46743C4125A8}.Release|arm64.ActiveCfg = Release|Any CPU
+		{3D522DC3-2D9E-4A46-B201-46743C4125A8}.Release|arm64.Build.0 = Release|Any CPU
+		{3D522DC3-2D9E-4A46-B201-46743C4125A8}.Release|x86.ActiveCfg = Release|Any CPU
+		{3D522DC3-2D9E-4A46-B201-46743C4125A8}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF8852B3-1054-425C-A29A-5B152AFEA491}
+	EndGlobalSection
+EndGlobal

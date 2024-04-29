@@ -1,0 +1,29 @@
+{
+	"$schema": "http://json.schemastore.org/template",
+	"name": "TinyOS Application",
+	"description": "A project template for creating TinyOS applications.",
+	"classifications": [ "TinyOS", "Console" ],
+	"author": "Bytewizer Technology",
+	"identity": "TinyOS.Extension.Templates.CS",
+	"shortName": "tinyos",
+	"tags": {
+		"language": "C#",
+		"type": "project"
+	},
+	"symbols": {
+		"id01": {
+			"type": "generated",
+			"generator": "guid",
+			"replaces": "id01",
+			"parameters": {
+				"defaultFormat": "n"
+			}
+		}
+	},
+	"sourceName": "ProjectName",
+	"preferNameDirectory": true,
+	"primaryOutputs": [
+		{ "path": "ProjectName.csproj" }
+	],
+	"defaultName": "TinyOSApplication"
+}

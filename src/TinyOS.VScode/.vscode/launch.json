@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Remote",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet: build",
+            "program": "/apps/313aee0b-57b3-466a-2d5a-f52b63bd654b/TinyOS.VScode.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "pipelink",
+                "pipeArgs": ["--device=localhost"],
+                "debuggerPath": "/usr/bin/vsdbg"
+            },
+            "logging": 
+            {
+                "moduleLoad": false
+            }
+        }
+    ]
+}

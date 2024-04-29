@@ -1,0 +1,93 @@
+name: Release CI
+
+on:
+  release:
+      types: [published]
+
+env:
+  VERBOSITY: 'Minimal'
+  CONFIGURATION: 'Release'
+  DOTNET_NOLOGO: 'true'
+  DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 'true'
+
+jobs: 
+  Build:
+    name: Release Build on .NET Core ${{ matrix.dotnet }}
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        dotnet: ['8.0.204']
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Extract build and copyright information into variables
+      id: info
+      run: |
+        echo "##[set-output name=build;]$(echo $(git rev-list --count HEAD))"
+        echo "##[set-output name=copyright;]$(echo © $(date -u +%Y) Bytewizer.  All rights reserved.)"
+    
+    - name: Show build information
+      run: |
+        echo build=${{ steps.info.outputs.build }}
+        echo copyright=${{ steps.info.outputs.copyright }}
+    
+    - name: Show release event information
+      run: |
+        echo "release.name        = ${{ github.event.release.name }}"
+        echo "release.body        = ${{ github.event.release.body }}"
+        echo "release.upload_url  = ${{ github.event.release.upload_url }}"
+        echo "release.html_url    = ${{ github.event.release.html_url }}"
+        echo "release.tag_name    = ${{ github.event.release.tag_name }}"
+        echo "release.draft       = ${{ github.event.release.draft }}"
+        echo "release.prerelease  = ${{ github.event.release.prerelease }}"
+    
+    - name: Setup .NET Core 
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: ${{ matrix.dotnet }}
+    
+    - name: Show .NET Core information
+      run: dotnet --info
+            
+    - name: Build and release project
+      run: >- 
+        dotnet pack -p:PackageVersion=${GITHUB_REF##*/v} -p:BuildNumber="${{ steps.info.outputs.build }}" -p:Copyright="${{ steps.info.outputs.copyright }}"
+        --verbosity ${VERBOSITY}
+        --configuration ${CONFIGURATION}
+        --include-symbols
+        --output .builds/artifacts
+
+    - name: Build and pack SDK project
+      working-directory: src/TinyOS.NET.Sdk  
+      run: >- 
+        dotnet pack -p:PackageVersion=${GITHUB_REF##*/v} -p:BuildNumber="${{ steps.info.outputs.build }}" -p:Copyright="${{ steps.info.outputs.copyright }}"
+        --verbosity ${VERBOSITY}
+        --configuration ${CONFIGURATION}
+        --include-symbols
+        --output .builds/artifacts
+
+    - name: Build and pack Templates project
+      working-directory: src/TinyOS.Extension.Templates  
+      run: >- 
+        dotnet pack -p:PackageVersion=${GITHUB_REF##*/v} -p:BuildNumber="${{ steps.info.outputs.build }}" -p:Copyright="${{ steps.info.outputs.copyright }}"
+        --verbosity ${VERBOSITY}
+        --configuration ${CONFIGURATION}
+        --include-symbols
+        --output .builds/artifacts
+
+    - name: Build and pack Pipelink project
+      working-directory: src/TinyOS.Pipelink 
+      run: >- 
+        dotnet pack -p:PackageVersion=${GITHUB_REF##*/v} -p:BuildNumber="${{ steps.info.outputs.build }}" -p:Copyright="${{ steps.info.outputs.copyright }}"
+        --verbosity ${VERBOSITY}
+        --configuration ${CONFIGURATION}
+        --include-symbols
+        --output .builds/artifacts
+
+    - name: Publish package to github.com
+      run: |
+        nuget sources add -name github.com -source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" -username ${{ github.actor }} -password ${{secrets.PACKAGE_API_KEY}}
+        nuget push .builds/artifacts/**/*.nupkg -source github.com -apikey ${{secrets.PACKAGE_API_KEY}} -skipduplicate

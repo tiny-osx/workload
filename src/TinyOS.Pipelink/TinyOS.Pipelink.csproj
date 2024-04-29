@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageType>DotnetTool</PackageType>
+    <PackageId>TinyOS.Pipelink</PackageId>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>pipelink</ToolCommandName>
+    <AssemblyName>pipelink</AssemblyName>
+  </PropertyGroup>
+
+</Project>
