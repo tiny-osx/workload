@@ -23,6 +23,7 @@ jobs:
     strategy:
       matrix:
         dotnet: ['8.0.204']
+        project: ['TinyOS.Pipelink']
     
     steps:
     - name: Checkout
@@ -45,7 +46,7 @@ jobs:
     - name: Build and pack runtime libraries project
       working-directory: src/  
       run: >- 
-        dotnet pack ./TinyOS.Pipelink -p:BuildNumber="${{ env.BUILD }}" -p:Copyright="${{ env.COPYRIGHT }}"
+        dotnet pack ./${{ matrix.project }} -p:BuildNumber="${{ env.BUILD }}" -p:Copyright="${{ env.COPYRIGHT }}"
         --version-suffix prebuild.${{ env.BUILD }}
         --verbosity ${{ env.VERBOSITY }}
         --configuration ${{ env.CONFIGURATION }}
