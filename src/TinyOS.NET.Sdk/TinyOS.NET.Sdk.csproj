@@ -90,9 +90,10 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<IncludeContentInPack>true</IncludeContentInPack>
-		<IncludeBuildOutput>true</IncludeBuildOutput>
 		<ContentTargetFolders>content</ContentTargetFolders>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<NoWarn>$(NoWarn)</NoWarn>
 	</PropertyGroup>
 
