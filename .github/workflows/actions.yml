@@ -42,10 +42,30 @@ jobs:
     - name: Show .NET Core information
       run: dotnet --info
             
-    - name: Build and pack runtime libraries project
+    - name: Build and pack template libraries project
       working-directory: src/  
       run: >- 
-        dotnet pack ./TinyOS.Workload.sln -p:BuildNumber="${{ env.BUILD }}" -p:Copyright="${{ env.COPYRIGHT }}"
+        dotnet pack ./TinyOS.Templates.sln -p:BuildNumber="${{ env.BUILD }}" -p:Copyright="${{ env.COPYRIGHT }}"
+        --version-suffix prebuild.${{ env.BUILD }}
+        --verbosity ${{ env.VERBOSITY }}
+        --configuration ${{ env.CONFIGURATION }}
+        --include-symbols
+        --output ./builds/artifacts
+
+    - name: Build and pack pipelink project
+      working-directory: src/  
+      run: >- 
+        dotnet pack ./TinyOS.Pipelink.sln -p:BuildNumber="${{ env.BUILD }}" -p:Copyright="${{ env.COPYRIGHT }}"
+        --version-suffix prebuild.${{ env.BUILD }}
+        --verbosity ${{ env.VERBOSITY }}
+        --configuration ${{ env.CONFIGURATION }}
+        --include-symbols
+        --output ./builds/artifacts
+
+    - name: Build and pack SDK project
+      working-directory: src/  
+      run: >- 
+        dotnet pack ./TinyOS.NET.Sdk.sln -p:BuildNumber="${{ env.BUILD }}" -p:Copyright="${{ env.COPYRIGHT }}"
         --version-suffix prebuild.${{ env.BUILD }}
         --verbosity ${{ env.VERBOSITY }}
         --configuration ${{ env.CONFIGURATION }}

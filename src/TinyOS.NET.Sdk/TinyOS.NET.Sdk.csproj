@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<!--<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<PackageType>MSBuildSdk</PackageType>
@@ -15,12 +15,9 @@
 		<BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
 		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
 		<NoWarn>NU5100</NoWarn>
-
-		<DeviceUrl>http://localhost:8920</DeviceUrl>
-
 	</PropertyGroup>
 
-	<Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+	--><!--<Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
 		<ItemGroup>
 			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths)" TargetPath="%(ReferenceCopyLocalPaths.DestinationSubPath)" />
 		</ItemGroup>
@@ -30,7 +27,7 @@
 		<ItemGroup>
 			<BuiltProjectOutputGroupOutput Include="$(ProjectDepsFilePath)" TargetPath="$(ProjectDepsFileName)" FinalOutputPath="$(ProjectDepsFilePath)" />
 		</ItemGroup>
-	</Target>
+	</Target>--><!--
 
 	<ItemGroup>
 		<Content Include="Build\*">
@@ -47,31 +44,22 @@
 	<UsingTask TaskName="CleanTask" AssemblyFile="$(ProjectDir)$(OutDir)$(AssemblyName).dll" />
 
 	<Target Name="RemoteDeploy" DependsOnTargets="Build">
-		<DeployTask 
-			SourceDirectory="$(ProjectDir)$(OutputPath)"
-			ProjectName="$(ProjectName)"
-			ProjectId="$(ProjectId)"
-			DeviceUrl="$(DeviceUrl)" 
-			VerifyHash="$(VerifyHash)"/>
+		<DeployTask SourceDirectory="$(ProjectDir)$(OutputPath)" ProjectName="$(ProjectName)" ProjectId="$(ProjectId)" DeviceUrl="$(DeviceUrl)" VerifyHash="$(VerifyHash)" />
 	</Target>
 
 	<Target Name="RemoteClean" DependsOnTargets="Build">
-		<CleanTask 
-			SourceDirectory="$(ProjectDir)$(OutputPath)" 
-			ProjectName="$(ProjectName)" 
-			ProjectId="$(ProjectId)" 
-			DeviceUrl="$(DeviceUrl)"/>
+		<CleanTask SourceDirectory="$(ProjectDir)$(OutputPath)" ProjectName="$(ProjectName)" ProjectId="$(ProjectId)" DeviceUrl="$(DeviceUrl)" />
 	</Target>
 
 	<Target Name="Deploy" DependsOnTargets="RemoteClean">
-		<CallTarget Targets="RemoteDeploy"/>
+		<CallTarget Targets="RemoteDeploy" />
 	</Target>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.9.5" PrivateAssets="all" ExcludeAssets="Runtime">
 		</PackageReference>
 		<PackageReference Include="System.Text.Json" Version="8.0.3" />
-	</ItemGroup> 
+	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\TinyOS.Build.Device\TinyOS.Build.Device.csproj" />
@@ -80,7 +68,7 @@
 </Project>
 
 
-<!-- <UsingTask TaskName="DeployTask" AssemblyFile="$(ProjectDir)$(OutDir)$(AssemblyName).dll" />
+--><!-- <UsingTask TaskName="DeployTask" AssemblyFile="$(ProjectDir)$(OutDir)$(AssemblyName).dll" />
 <UsingTask TaskName="CleanTask" AssemblyFile="$(ProjectDir)$(OutDir)$(AssemblyName).dll" />
 <Target Name="OnDeploy" DependsOnTargets="Build">
 	<DeployTask SourceDirectory="$(MSBuildProjectDirectory)\$(OutputPath)" ProjectName="$(ProjectName)" />
@@ -91,7 +79,7 @@
 
 
 
-<!--<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<PackageType>MSBuildSdk</PackageType>
@@ -99,15 +87,19 @@
 		<Title>TinyOS MSBuild targets</Title>
 		<Description>Provides targets for building TinyOS projects.</Description>
 		<PackageTags>MSBuild TinyOS</PackageTags>
-		<TargetFramework>netstandard2.1</TargetFramework>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
 		<IncludeContentInPack>true</IncludeContentInPack>
 		<IncludeBuildOutput>true</IncludeBuildOutput>
 		<ContentTargetFolders>content</ContentTargetFolders>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<NoWarn>$(NoWarn)</NoWarn>
 	</PropertyGroup>
 
+	<!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType></DebugType>
+	</PropertyGroup>-->
+	
 	<ItemGroup>
 		<Content Include="build\*">
 			<Pack>true</Pack>
@@ -128,13 +120,34 @@
 		</ItemGroup>
 	</Target>
 
+	<Target Name="SharpGenWriteVersionProps" BeforeTargets="_GetPackageFiles;GenerateNuspec" Outputs="@(SdkVersionProps)">
+		<PropertyGroup>
+			<SdkVersionPropsPath>$([System.IO.Path]::Combine('$(IntermediateOutputPath)', 'Sdk.Version.props'))</SdkVersionPropsPath>
+		</PropertyGroup>
+
+		<ItemGroup>
+			<Content Include="$(SdkVersionPropsPath)" PackagePath="Sdk" />
+			<_VersionPropsLine Include="&lt;Project&gt;" />
+			<_VersionPropsLine Include="&lt;PropertyGroup&gt;" />
+			<_VersionPropsLine Include="&lt;SharpGenSdkVersion Condition=&quot;'%24(SharpGenSdkVersion)'==''&quot;&gt;$(PackageVersion)&lt;/SharpGenSdkVersion&gt;" />
+			<_VersionPropsLine Include="&lt;/PropertyGroup&gt;" />
+			<_VersionPropsLine Include="&lt;/Project&gt;" />
+		</ItemGroup>
+
+		<WriteLinesToFile File="$(SdkVersionPropsPath)" WriteOnlyWhenDifferent="true" Overwrite="true" Lines="@(_VersionPropsLine)" />
+	</Target>
+	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.9.5" PrivateAssets="all" ExcludeAssets="Runtime">
-		  <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="SSH.NET" Version="2024.0.0" PrivateAssets="all">
+		<PackageReference Include="System.Text.Json" Version="8.0.3">
 			<IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
 
-</Project>-->
+	<ItemGroup>
+	  <ProjectReference Include="..\TinyOS.Build.Device\TinyOS.Build.Device.csproj" />
+	</ItemGroup>
+
+</Project>
