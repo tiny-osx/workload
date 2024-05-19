@@ -65,7 +65,7 @@ jobs:
     - name: Build and pack SDK project
       working-directory: src/  
       run: >- 
-        dotnet pack ./TinyOS.NET.Sdk.sln -p:BuildNumber="${{ env.BUILD }}" -p:Copyright="${{ env.COPYRIGHT }}"
+        dotnet pack ./TinyOS.Sdk.sln -p:BuildNumber="${{ env.BUILD }}" -p:Copyright="${{ env.COPYRIGHT }}"
         --version-suffix prebuild.${{ env.BUILD }}
         --verbosity ${{ env.VERBOSITY }}
         --configuration ${{ env.CONFIGURATION }}
