@@ -17,7 +17,7 @@
             "pipeTransport": {
                 "pipeCwd": "${workspaceFolder}",
                 "pipeProgram": "pipelink",
-                "pipeArgs": ["--device=localhost"],
+                "pipeArgs": ["--device=tinyos"],
                 "debuggerPath": "/usr/bin/vsdbg"
             },
             "logging": 

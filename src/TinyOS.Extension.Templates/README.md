@@ -36,3 +36,9 @@ To uninstall the templates
 ```bash
 dotnet new --uninstall TinyOS.Extension.Templates
 ```
+
+To clear all instlled nuget packages
+```bash
+dotnet nuget locals all --clear
+dotnet restore
+```
