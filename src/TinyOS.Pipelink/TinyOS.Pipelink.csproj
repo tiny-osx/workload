@@ -5,11 +5,16 @@
     <PackageId>TinyOS.Pipelink</PackageId>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+	<LangVersion>latest</LangVersion>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>pipelink</ToolCommandName>
     <AssemblyName>pipelink</AssemblyName>
   </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Text.Json" Version="8.0.3">
+			<IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
 </Project>

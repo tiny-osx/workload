@@ -1,4 +1,62 @@
-﻿<!--<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<PackageType>MSBuildSdk</PackageType>
+		<PackageId>TinyOS.NET.Sdk</PackageId>
+		<Title>TinyOS MSBuild targets</Title>
+		<Description>Provides targets for building TinyOS projects.</Description>
+		<PackageTags>MSBuild TinyOS</PackageTags>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<IncludeContentInPack>true</IncludeContentInPack>
+		<ContentTargetFolders>content</ContentTargetFolders>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<NoWarn>$(NoWarn)</NoWarn>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<Content Include="build\*">
+			<Pack>true</Pack>
+			<PackagePath>build\</PackagePath>
+		</Content>
+		<Content Include="sdk\*">
+			<Pack>true</Pack>
+			<PackagePath>Sdk\</PackagePath>
+		</Content>
+	</ItemGroup>
+
+	<Target Name="CollectRuntimeOutputs" BeforeTargets="_GetPackageFiles">
+		<ItemGroup>
+			<Content Include="$(OutputPath)\*.dll;$(OutputPath)\*.json">
+				<Pack>true</Pack>
+				<PackagePath>build\</PackagePath>
+			</Content>
+		</ItemGroup>
+	</Target>
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.9.5" PrivateAssets="all" ExcludeAssets="Runtime">
+			<IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.Text.Json" Version="8.0.3">
+			<IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\TinyOS.Build.Device\TinyOS.Build.Device.csproj" />
+	</ItemGroup>
+
+</Project>
+
+
+
+
+
+
+<!--<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<PackageType>MSBuildSdk</PackageType>
@@ -17,7 +75,8 @@
 		<NoWarn>NU5100</NoWarn>
 	</PropertyGroup>
 
-	--><!--<Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+	-->
+<!--<Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
 		<ItemGroup>
 			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths)" TargetPath="%(ReferenceCopyLocalPaths.DestinationSubPath)" />
 		</ItemGroup>
@@ -27,7 +86,8 @@
 		<ItemGroup>
 			<BuiltProjectOutputGroupOutput Include="$(ProjectDepsFilePath)" TargetPath="$(ProjectDepsFileName)" FinalOutputPath="$(ProjectDepsFilePath)" />
 		</ItemGroup>
-	</Target>--><!--
+	</Target>-->
+<!--
 
 	<ItemGroup>
 		<Content Include="Build\*">
@@ -68,7 +128,8 @@
 </Project>
 
 
---><!-- <UsingTask TaskName="DeployTask" AssemblyFile="$(ProjectDir)$(OutDir)$(AssemblyName).dll" />
+-->
+<!-- <UsingTask TaskName="DeployTask" AssemblyFile="$(ProjectDir)$(OutDir)$(AssemblyName).dll" />
 <UsingTask TaskName="CleanTask" AssemblyFile="$(ProjectDir)$(OutDir)$(AssemblyName).dll" />
 <Target Name="OnDeploy" DependsOnTargets="Build">
 	<DeployTask SourceDirectory="$(MSBuildProjectDirectory)\$(OutputPath)" ProjectName="$(ProjectName)" />
@@ -79,49 +140,33 @@
 
 
 
-<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<PackageType>MSBuildSdk</PackageType>
-		<PackageId>TinyOS.NET.Sdk</PackageId>
-		<Title>TinyOS MSBuild targets</Title>
-		<Description>Provides targets for building TinyOS projects.</Description>
-		<PackageTags>MSBuild TinyOS</PackageTags>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<LangVersion>latest</LangVersion>
-		<IncludeContentInPack>true</IncludeContentInPack>
-		<ContentTargetFolders>content</ContentTargetFolders>
-		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
-		<IncludeBuildOutput>false</IncludeBuildOutput>
-		<NoWarn>$(NoWarn)</NoWarn>
-	</PropertyGroup>
-
-	<!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+<!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<DebugType></DebugType>
 	</PropertyGroup>-->
-	
+
+<!--
+	<PropertyGroup>
+		<BuildBinariesPath>$(MSBuildThisFileDirectory)\tools\netstandard2.0\</BuildBinariesPath>
+	</PropertyGroup>
+
+	<Target Name="CopyBuildBinaries" BeforeTargets="Build">
+	<Message Text="Using Pipelink version '$(DacFxPackageVersion)'" Importance="high" />
 	<ItemGroup>
-		<Content Include="build\*">
-			<Pack>true</Pack>
-			<PackagePath>build\</PackagePath>
-		</Content>
-		<Content Include="sdk\*">
-			<Pack>true</Pack>
-			<PackagePath>Sdk\</PackagePath>
-		</Content>
+		<PackageFiles Include="$(OutputPath)\*" />
 	</ItemGroup>
+	<Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(BuildBinariesPath)" />
+</Target>
 
-	<Target Name="CollectRuntimeOutputs" BeforeTargets="_GetPackageFiles">
-		<ItemGroup>
-			<Content Include="$(OutputPath)\*.dll;$(OutputPath)\*.json">
-				<Pack>true</Pack>
-				<PackagePath>build\</PackagePath>
-			</Content>
-		</ItemGroup>
-	</Target>
+<Target Name="DeleteToolsFolder" AfterTargets="Clean">
+	<RemoveDir Directories="$(MSBuildThisFileDirectory)\tools" />
+</Target>
 
-	<Target Name="SharpGenWriteVersionProps" BeforeTargets="_GetPackageFiles;GenerateNuspec" Outputs="@(SdkVersionProps)">
+<ItemGroup>
+	<None Remove="tools\**" />
+</ItemGroup>-->
+
+
+<!--<Target Name="SharpGenWriteVersionProps" BeforeTargets="_GetPackageFiles;GenerateNuspec" Outputs="@(SdkVersionProps)">
 		<PropertyGroup>
 			<SdkVersionPropsPath>$([System.IO.Path]::Combine('$(IntermediateOutputPath)', 'Sdk.Version.props'))</SdkVersionPropsPath>
 		</PropertyGroup>
@@ -136,19 +181,4 @@
 		</ItemGroup>
 
 		<WriteLinesToFile File="$(SdkVersionPropsPath)" WriteOnlyWhenDifferent="true" Overwrite="true" Lines="@(_VersionPropsLine)" />
-	</Target>
-	
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.9.5" PrivateAssets="all" ExcludeAssets="Runtime">
-			<IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="System.Text.Json" Version="8.0.3">
-			<IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\TinyOS.Build.Device\TinyOS.Build.Device.csproj" />
-	</ItemGroup>
-
-</Project>
+	</Target>-->

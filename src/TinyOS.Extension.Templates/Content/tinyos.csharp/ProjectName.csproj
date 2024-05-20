@@ -1,4 +1,4 @@
-<Project Sdk="TinyOS.NET.Sdk">
+<Project Sdk="TinyOS.NET.Sdk" Version="###ASSEMBLY_VERSION###">
 
   <PropertyGroup>
 	<OutputType>Exe</OutputType>
@@ -6,6 +6,10 @@
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<TinyOSGuid>id01</TinyOSGuid>
+  </PropertyGroup>
+
+  <PropertyGroup>
+  	<RestoreSources>$(RestoreSources);../local-packages;https://dev.nugettest.org/v3/index.json</RestoreSources>
   </PropertyGroup>
 
 </Project>

@@ -46,7 +46,7 @@ jobs:
       working-directory: src/  
       run: >- 
         dotnet pack ./TinyOS.Templates.sln -p:BuildNumber="${{ env.BUILD }}" -p:Copyright="${{ env.COPYRIGHT }}"
-        --version-suffix prebuild.${{ env.BUILD }}
+        --version-suffix preview.${{ env.BUILD }}
         --verbosity ${{ env.VERBOSITY }}
         --configuration ${{ env.CONFIGURATION }}
         --include-symbols
@@ -56,7 +56,7 @@ jobs:
       working-directory: src/  
       run: >- 
         dotnet pack ./TinyOS.Pipelink.sln -p:BuildNumber="${{ env.BUILD }}" -p:Copyright="${{ env.COPYRIGHT }}"
-        --version-suffix prebuild.${{ env.BUILD }}
+        --version-suffix preview.${{ env.BUILD }}
         --verbosity ${{ env.VERBOSITY }}
         --configuration ${{ env.CONFIGURATION }}
         --include-symbols
@@ -66,7 +66,7 @@ jobs:
       working-directory: src/  
       run: >- 
         dotnet pack ./TinyOS.Sdk.sln -p:BuildNumber="${{ env.BUILD }}" -p:Copyright="${{ env.COPYRIGHT }}"
-        --version-suffix prebuild.${{ env.BUILD }}
+        --version-suffix preview.${{ env.BUILD }}
         --verbosity ${{ env.VERBOSITY }}
         --configuration ${{ env.CONFIGURATION }}
         --include-symbols
