@@ -21,7 +21,7 @@
 			<Pack>true</Pack>
 			<PackagePath>build\</PackagePath>
 		</Content>
-		<Content Include="sdk\*">
+		<Content Include="Sdk\*">
 			<Pack>true</Pack>
 			<PackagePath>Sdk\</PackagePath>
 		</Content>
