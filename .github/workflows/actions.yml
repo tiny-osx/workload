@@ -83,7 +83,6 @@ jobs:
         --version-suffix preview.${{ env.BUILD }}
         --verbosity ${{ env.VERBOSITY }}
         --configuration ${{ env.CONFIGURATION }}
-        --include-symbols
         --output ./builds/artifacts
 
     - name: Upload build artifacts
