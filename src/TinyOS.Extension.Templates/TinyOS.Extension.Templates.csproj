@@ -18,7 +18,7 @@
 	</PropertyGroup>
 
   <PropertyGroup>
-    <Version Condition=" '$(GlobalVersion)' == '' and '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
+    <GlobalVersion Condition=" '$(Version)' == '' and '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</GlobalVersion>
   </PropertyGroup>
 
 	<ItemGroup>
