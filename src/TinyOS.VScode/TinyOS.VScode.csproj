@@ -1,5 +1,5 @@
-﻿<Project Sdk="TinyOS.NET.Sdk/1.0.0">
-
+﻿<Project Sdk="TinyOS.NET.Sdk/1.0.0-preview.20240520-12">                               
+                    
   <!-- <Import Project="../TinyOS.NET.Sdk/Sdk/Sdk.props" /> -->
 
   <PropertyGroup>
@@ -12,7 +12,7 @@
 
     <!-- <DeviceUrl>http://192.168.7.1:8920</DeviceUrl> -->
 
-    <RestoreSources>../local-packages</RestoreSources>
+    <!-- <RestoreSources>../local-packages</RestoreSources> -->
     
   </PropertyGroup>
   
