@@ -17,21 +17,25 @@
 		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>	
 	</PropertyGroup>
 
+  <PropertyGroup>
+    <Version Condition=" '$(Version)' == '' and '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
+  </PropertyGroup>
+
 	<ItemGroup>
 		<Content Include="Content/**/*" Exclude="**\bin\**;**\obj\**;$(MSBuildThisFile)" >
 			<PackagePath>content\</PackagePath>
 		</Content>
 	</ItemGroup>
 
-	<!--
-    This target writes a global.json into src/samples which ensures that all the
-    sample projects will use the SDK package version we just built.
-    -->
-    <Target Name="_WriteGlobalJson"
-            BeforeTargets="Pack">
-        <PropertyGroup>
-            <_GlobalJson>
-                <![CDATA[
+  <!--
+  This target writes a global.json into content which ensures that all the
+  sample projects will use the SDK package version we just built.
+  -->
+  <Target Name="_WriteGlobalJson"
+          BeforeTargets="Pack">
+      <PropertyGroup>
+          <_GlobalJson>
+              <![CDATA[
 {
   "$schema": "https://json.schemastore.org/global.json",
   "sdk": {
@@ -42,14 +46,14 @@
     "TinyOS.NET.Sdk": "$(Version)"
   }
 }
-                ]]>
-            </_GlobalJson>
-        </PropertyGroup>
+              ]]>
+          </_GlobalJson>
+      </PropertyGroup>
 
-        <WriteLinesToFile File="./Content/tinyos.csharp/global.json"
-                          Lines="$(_GlobalJson)"
-                          Overwrite="true"
-                          WriteOnlyWhenDifferent="true" />
-    </Target>
+      <WriteLinesToFile File="./Content/tinyos.csharp/global.json"
+                        Lines="$(_GlobalJson)"
+                        Overwrite="true"
+                        WriteOnlyWhenDifferent="true" />
+  </Target>
 	
 </Project>
