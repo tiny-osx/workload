@@ -17,10 +17,6 @@
 		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>	
 	</PropertyGroup>
 
-  <PropertyGroup>
-    <GlobalVersion Condition=" '$(Version)' == '' and '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</GlobalVersion>
-  </PropertyGroup>
-
 	<ItemGroup>
 		<Content Include="Content/**/*" Exclude="**\bin\**;**\obj\**;$(MSBuildThisFile)" >
 			<PackagePath>content\</PackagePath>
@@ -43,7 +39,7 @@
     "rollForward": "latestMajor"
   },
   "msbuild-sdks": {
-    "TinyOS.NET.Sdk": "$(GlobalVersion)"
+    "TinyOS.NET.Sdk": "$(PackageVersion)"
   }
 }
               ]]>
