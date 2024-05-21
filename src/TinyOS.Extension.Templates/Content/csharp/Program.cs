@@ -4,7 +4,7 @@ using System.Threading;
 using System.Collections;
 using System.Diagnostics;
 
-namespace ProjectName
+namespace ProjectName.1
 {
     internal class Program
     {
