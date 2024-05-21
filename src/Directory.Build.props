@@ -9,7 +9,6 @@
 		<Copyright>Bytewizer Technology. All rights reserved.</Copyright>
 		<PackageProjectUrl>https://github.com/tiny-osx</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/tiny-osx/workload</RepositoryUrl>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
