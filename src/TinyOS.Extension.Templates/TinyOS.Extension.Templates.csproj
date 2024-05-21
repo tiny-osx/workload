@@ -18,7 +18,7 @@
 	</PropertyGroup>
 
   <PropertyGroup>
-    <Version Condition=" '$(Version)' == '' and '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
+    <Version Condition=" '$(GlobalVersion)' == '' and '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -43,7 +43,7 @@
     "rollForward": "latestMajor"
   },
   "msbuild-sdks": {
-    "TinyOS.NET.Sdk": "$(Version)"
+    "TinyOS.NET.Sdk": "$(GlobalVersion)"
   }
 }
               ]]>
