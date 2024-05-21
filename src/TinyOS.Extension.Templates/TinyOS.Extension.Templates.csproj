@@ -46,7 +46,7 @@
           </_GlobalJson>
       </PropertyGroup>
 
-      <WriteLinesToFile File="./Content/tinyos.csharp/global.json"
+      <WriteLinesToFile File="./Content/csharp/global.json"
                         Lines="$(_GlobalJson)"
                         Overwrite="true"
                         WriteOnlyWhenDifferent="true" />
