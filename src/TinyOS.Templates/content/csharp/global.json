@@ -5,6 +5,6 @@
     "rollForward": "latestMajor"
   },
   "msbuild-sdks": {
-    "TinyOS.NET.Sdk": "1.0.0-preview.20240521-23"
+    "TinyOS.NET.Sdk": "1.0.0-preview.20240522-100"
   }
 }

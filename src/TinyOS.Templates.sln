@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyOS.Extension.Templates", "TinyOS.Extension.Templates\TinyOS.Extension.Templates.csproj", "{2D5BAC11-9473-478A-852B-D708EA2F2D71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyOS.Templates", "TinyOS.Templates\TinyOS.Templates.csproj", "{2D5BAC11-9473-478A-852B-D708EA2F2D71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
