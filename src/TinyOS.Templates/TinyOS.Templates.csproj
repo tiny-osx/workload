@@ -47,7 +47,7 @@
       </_GlobalJson>
     </PropertyGroup>
 
-    <WriteLinesToFile File="./Content/csharp/global.json"
+    <WriteLinesToFile File="./content/csharp/global.json"
                       Lines="$(_GlobalJson)"
                       Overwrite="true"
                       WriteOnlyWhenDifferent="true" />
