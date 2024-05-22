@@ -20,7 +20,7 @@
 			}
 		}
 	},
-	"sourceName": "ProjectName.1",
+	"sourceName": "ProjectName",
 	"preferNameDirectory": true,
 	"primaryOutputs": [
 		{ "path": "ProjectName.csproj" }
