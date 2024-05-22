@@ -18,12 +18,12 @@
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
   </PropertyGroup>
 
-<ItemGroup>
-  <PackageReference Remove="Microsoft.NETCore.App" />
-  <Content Include="content/**" >
-    <PackagePath>content\</PackagePath>
-  </Content>
-</ItemGroup>
+  <ItemGroup>
+    <PackageReference Remove="Microsoft.NETCore.App" />
+    <Content Include="content/**" >
+      <PackagePath>content\</PackagePath>
+    </Content>
+  </ItemGroup>
 
   <!--
 	This target writes a global.json into content which ensures that all the
@@ -47,10 +47,10 @@
       </_GlobalJson>
     </PropertyGroup>
 
-      <WriteLinesToFile File="./Content/csharp/global.json"
-                        Lines="$(_GlobalJson)"
-                        Overwrite="true"
-                        WriteOnlyWhenDifferent="true" />
+    <WriteLinesToFile File="./Content/csharp/global.json"
+                      Lines="$(_GlobalJson)"
+                      Overwrite="true"
+                      WriteOnlyWhenDifferent="true" />
   </Target>
 
 </Project>
