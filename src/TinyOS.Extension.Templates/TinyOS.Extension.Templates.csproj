@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 
@@ -41,7 +41,7 @@
   sample projects will use the SDK package version we just built.
   -->
   <Target Name="_WriteGlobalJson"
-          BeforeTargets="Pack">
+          BeforeTargets="BeforePublish">
       <PropertyGroup>
           <_GlobalJson>
               <![CDATA[
