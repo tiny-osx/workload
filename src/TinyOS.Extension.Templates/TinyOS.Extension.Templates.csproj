@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+
 		<PackageType>Template</PackageType>
 		<PackageId>TinyOS.Extension.Templates</PackageId>
 		<Title>TinyOS Templates</Title>
 		<Description>Project templates for creating TinyOS projects.</Description>
 		<PackageTags>dotnet-new;templates;template;tinyos</PackageTags>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFramework>$(SdkTargetFramework)</TargetFramework>
 		<IncludeContentInPack>true</IncludeContentInPack>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<ContentTargetFolders>content</ContentTargetFolders>
@@ -15,10 +16,23 @@
 		<NoWarn>$(NoWarn)</NoWarn>
 		<NoPackageAnalysis>true</NoPackageAnalysis>
 		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>	
+
+    <IncludeSource>False</IncludeSource>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <OutputPath>$(ArtifactsTmpDir)</OutputPath>
+    <EnableDefaultItems>False</EnableDefaultItems>
+    <IsPackable>true</IsPackable>
+    <IsShipping>true</IsShipping>
+    <IsShippingPackage>true</IsShippingPackage>
+    <SuppressDependenciesWhenPacking>True</SuppressDependenciesWhenPacking>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="Content/**" >
+		<PackageReference Remove="Microsoft.NETCore.App" />
+    <Content Include="content/**" >
 			<PackagePath>content\</PackagePath>
 		</Content>
 	</ItemGroup>
