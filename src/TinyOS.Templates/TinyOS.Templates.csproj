@@ -1,6 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
+  <PropertyGroup>
     <PackageType>Template</PackageType>
     <PackageId>TinyOS.Templates</PackageId>
     <Title>TinyOS Templates</Title>
@@ -18,21 +18,21 @@
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
   </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Remove="Microsoft.NETCore.App" />
-    <Content Include="content/**" >
-			<PackagePath>content\</PackagePath>
-		</Content>
-	</ItemGroup>
+<ItemGroup>
+  <PackageReference Remove="Microsoft.NETCore.App" />
+  <Content Include="content/**" >
+    <PackagePath>content\</PackagePath>
+  </Content>
+</ItemGroup>
 
   <!--
-  This target writes a global.json into content which ensures that all the
-  sample projects will use the SDK package version we just built.
-  -->
+	This target writes a global.json into content which ensures that all the
+	sample projects will use the SDK package version we just built.
+	-->
   <Target Name="_WriteGlobalJson" BeforeTargets="_GetPackageFiles">
-      <PropertyGroup>
-          <_GlobalJson>
-              <![CDATA[
+    <PropertyGroup>
+      <_GlobalJson>
+        <![CDATA[
 {
   "$schema": "https://json.schemastore.org/global.json",
   "sdk": {
@@ -44,13 +44,13 @@
   }
 }
               ]]>
-          </_GlobalJson>
-      </PropertyGroup>
+      </_GlobalJson>
+    </PropertyGroup>
 
       <WriteLinesToFile File="./Content/csharp/global.json"
                         Lines="$(_GlobalJson)"
                         Overwrite="true"
                         WriteOnlyWhenDifferent="true" />
   </Target>
-	
+
 </Project>
