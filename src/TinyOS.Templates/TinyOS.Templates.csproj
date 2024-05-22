@@ -1,22 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<PackageType>Template</PackageType>
-		<PackageId>TinyOS.Templates</PackageId>
-		<Title>TinyOS Templates</Title>
-		<Description>Project templates for creating TinyOS projects.</Description>
-		<PackageTags>dotnet-new;templates;template;tinyos</PackageTags>
-		<TargetFramework>net8.0</TargetFramework>
-		<NoBuild>true</NoBuild>
+    <PackageType>Template</PackageType>
+    <PackageId>TinyOS.Templates</PackageId>
+    <Title>TinyOS Templates</Title>
+    <Description>Project templates for creating TinyOS projects.</Description>
+    <PackageTags>dotnet-new;templates;template;tinyos</PackageTags>
+    <TargetFramework>net8.0</TargetFramework>
+    <NoBuild>true</NoBuild>
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <IncludeContentInPack>true</IncludeContentInPack>
-		<IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
     <EnableDefaultItems>false</EnableDefaultItems>
-		<ContentTargetFolders>content</ContentTargetFolders>
-		<GenerateDependencyFile>false</GenerateDependencyFile>
+    <ContentTargetFolders>content</ContentTargetFolders>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
-	</PropertyGroup>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+  </PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Remove="Microsoft.NETCore.App" />
