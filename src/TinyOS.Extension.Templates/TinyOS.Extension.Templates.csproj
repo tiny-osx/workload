@@ -7,7 +7,7 @@
 		<Title>TinyOS Templates</Title>
 		<Description>Project templates for creating TinyOS projects.</Description>
 		<PackageTags>dotnet-new;templates;template;tinyos</PackageTags>
-		<TargetFramework>$(SdkTargetFramework)</TargetFramework>
+		<TargetFramework>netstandard2.0</TargetFramework>
 		<IncludeContentInPack>true</IncludeContentInPack>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<ContentTargetFolders>content</ContentTargetFolders>
@@ -25,7 +25,6 @@
     <IsShipping>true</IsShipping>
     <IsShippingPackage>true</IsShippingPackage>
     <SuppressDependenciesWhenPacking>True</SuppressDependenciesWhenPacking>
-    <NoWarn>$(NoWarn);NU1507</NoWarn>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
 	</PropertyGroup>
