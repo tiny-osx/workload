@@ -18,7 +18,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="Content/**/*" Exclude="**\bin\**;**\obj\**;$(MSBuildThisFile)" >
+		<Content Include="Content/**" >
 			<PackagePath>content\</PackagePath>
 		</Content>
 	</ItemGroup>
