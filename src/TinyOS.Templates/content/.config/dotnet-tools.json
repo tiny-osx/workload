@@ -1,0 +1,12 @@
+{
+    "version": 1,
+    "isRoot": true,
+    "tools": {
+        "pipelink": {
+            "version": "1.0.0-preview.20240522-37",
+            "commands": [
+                "pipelink"
+            ]
+        }
+    }
+}

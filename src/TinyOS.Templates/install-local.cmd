@@ -1,5 +1,5 @@
 rem uninstall templates
-dotnet new uninstall TinyOS.Extension.Templates
+dotnet new uninstall TinyOS.Templates
 
 rem pack 
 del .\bin\Release\*.nupkg

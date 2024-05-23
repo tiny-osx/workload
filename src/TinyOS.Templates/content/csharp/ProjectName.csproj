@@ -1,11 +1,11 @@
 <Project Sdk="TinyOS.NET.Sdk">
 
   <PropertyGroup>
-	<OutputType>Exe</OutputType>
-	<TargetFramework>net8</TargetFramework>
-	<Nullable>enable</Nullable>
-	<ImplicitUsings>enable</ImplicitUsings>
-	<TinyOSGuid>id01</TinyOSGuid>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TinyOSGuid>id01</TinyOSGuid>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

@@ -2,7 +2,10 @@
 	"$schema": "http://json.schemastore.org/template",
 	"name": "TinyOS Application",
 	"description": "A project template for creating TinyOS applications.",
-	"classifications": [ "TinyOS", "Console" ],
+	"classifications": [
+		"TinyOS",
+		"Console"
+	],
 	"author": "Bytewizer Technology",
 	"identity": "TinyOS.Extension.Templates.CS",
 	"shortName": "tinyos",
@@ -23,7 +26,9 @@
 	"sourceName": "ProjectName",
 	"preferNameDirectory": true,
 	"primaryOutputs": [
-		{ "path": "ProjectName.csproj" }
+		{
+			"path": "ProjectName.csproj"
+		}
 	],
 	"defaultName": "TinyOSApplication"
 }

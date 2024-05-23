@@ -2,7 +2,7 @@
 
 ## Installing the templates
 
-The templates are available on [NuGet](https://dev.nugettest.org/packages/TinyOS.Extension.Templates/).  To install the templates run the following command:
+The templates are available on [NuGet](https://www.nuget.org/packages/TinyOS.Templates/).  To install the templates run the following command:
 
 ```bash
 dotnet new install TinyOS.Templates
@@ -38,9 +38,9 @@ dotnet new uninstall TinyOS.Templates
 ```
 
 To clear all installed nuget packages:
+
 ```bash
 dotnet nuget locals all --clear
-dotnet restore
 ```
 
 ## Installing latest development templates
