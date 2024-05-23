@@ -13,6 +13,7 @@
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
+        <BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
 		<NoWarn>$(NoWarn)</NoWarn>
 	</PropertyGroup>
 	
@@ -25,26 +26,32 @@
 			<Pack>true</Pack>
 			<PackagePath>Sdk\</PackagePath>
 		</Content>
+        <Content Include="tools\**\*">
+            <Pack>true</Pack>
+            <PackagePath>tools\</PackagePath>
+        </Content>
 	</ItemGroup>
-
-	<Target Name="CollectRuntimeOutputs" BeforeTargets="_GetPackageFiles">
-		<ItemGroup>
-			<Content Include="$(OutputPath)\*.dll;$(OutputPath)\*.json">
-				<Pack>true</Pack>
-				<PackagePath>build\</PackagePath>
-			</Content>
-		</ItemGroup>
-	</Target>
 	
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.9.5" PrivateAssets="all" ExcludeAssets="Runtime">
-			<IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="System.Text.Json" Version="8.0.3">
-			<IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
+    <PropertyGroup>
+        <BuildBinariesPath>$(MSBuildThisFileDirectory)\tools\netstandard2.0\</BuildBinariesPath>
+    </PropertyGroup>
 
+    <Target Name="CopyBuildBinaries" BeforeTargets="Build">
+        <ItemGroup>
+            <PackageFiles Include="$(OutputPath)\*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(BuildBinariesPath)" />
+    </Target>
+    
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.9.5" PrivateAssets="all" ExcludeAssets="Runtime">
+            <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="System.Text.Json" Version="8.0.3">
+            <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup> 
+    
 	<ItemGroup>
 	  <ProjectReference Include="..\TinyOS.Build.Device\TinyOS.Build.Device.csproj" />
 	</ItemGroup>
