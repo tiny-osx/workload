@@ -13,7 +13,7 @@
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
-        <BuildOutputTargetFolder>tools</BuildOutputTargetFolder>
+                <BuildOutputTargetFolder>tools</BuildOutputTargetFolder>
 		<NoWarn>$(NoWarn)</NoWarn>
 	</PropertyGroup>
 	
@@ -51,12 +51,12 @@
 		<None Remove="tools\**" />
 	</ItemGroup>-->
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.9.5" PrivateAssets="all" ExcludeAssets="Runtime"></PackageReference>
-        <PackageReference Include="System.Text.Json" Version="8.0.3"></PackageReference>
-    </ItemGroup> 
-
-	<ItemGroup>
+        <ItemGroup>
+                <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.9.5" PrivateAssets="all" ExcludeAssets="Runtime"></PackageReference>
+                <PackageReference Include="System.Text.Json" Version="8.0.3"></PackageReference>
+        </ItemGroup> 
+        
+        <ItemGroup>
 	  <ProjectReference Include="..\TinyOS.Build.Device\TinyOS.Build.Device.csproj" />
 	</ItemGroup>
 
