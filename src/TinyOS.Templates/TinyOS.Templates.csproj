@@ -26,9 +26,9 @@
   </ItemGroup>
 
   <!--
-	This target writes a global.json into content which ensures that all the
-	sample projects will use the SDK package version we just built.
-	-->
+  This target writes a global.json into content which ensures that all the
+  sample projects will use the SDK package version just built.
+  -->
   <Target Name="_WriteGlobalJson" BeforeTargets="_GetPackageFiles">
     <PropertyGroup>
       <_GlobalJson>
@@ -43,12 +43,43 @@
     "TinyOS.NET.Sdk": "$(PackageVersion)"
   }
 }
-              ]]>
+        ]]>
       </_GlobalJson>
     </PropertyGroup>
 
     <WriteLinesToFile File="./content/csharp/global.json"
                       Lines="$(_GlobalJson)"
+                      Overwrite="true"
+                      WriteOnlyWhenDifferent="true" />
+  </Target>
+
+  <!--
+  This target writes a dotnet-tools.json into content which ensures that all the
+  sample projects will use the dotnet tools package version just built.
+  -->
+  <Target Name="_WriteDotnetToolsJson" BeforeTargets="_GetPackageFiles">
+    <PropertyGroup>
+      <_DotnetToolsJson>
+        <![CDATA[
+{
+    "$schema": "https://json.schemastore.org/dotnet-tools.json",
+    "version": 1,
+    "isRoot": true,
+    "tools": {
+        "TinyOS.Pipelink": {
+            "version": "$(PackageVersion)",
+            "commands": [
+                "pipelink"
+            ]
+        }
+    }
+}
+        ]]>
+      </_DotnetToolsJson>
+    </PropertyGroup>
+
+    <WriteLinesToFile File="./content/csharp/.config/dotnet-tools.json"
+                      Lines="$(_DotnetToolsJson)"
                       Overwrite="true"
                       WriteOnlyWhenDifferent="true" />
   </Target>
