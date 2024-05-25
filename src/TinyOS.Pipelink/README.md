@@ -10,7 +10,7 @@ dotnet tool install --global TinyOS.Pipelink
 
 ## Building the pipelink tool
 
-If you want to customize or contribute to the tool, you will need to build and install the tool locally. The following instructions will help you get started. The tool automatically generate a nupkg on build. To build and install the nupkg locally run the following command:
+If you want to customize or contribute to the pipelink tool, you will need to build and install the tool locally. The following instructions will help you get started. The tool automatically generate a nupkg on build. To build and install the nupkg locally run the following command:
 
 ```bash
 dotnet pack TinyOS.Pipelink.csproj
@@ -29,5 +29,5 @@ dotnet tool uninstall --global TinyOS.Pipelink
 To install the templates run the following command:
 
 ```bash
-dotnet tool install --global TinyOS.Templates --add-source https://apidev.nugettest.org/v3/index.json
+dotnet tool install --global TinyOS.Pipelink --add-source https://apidev.nugettest.org/v3/index.json
 ```

@@ -1,21 +1,14 @@
-﻿<Project Sdk="TinyOS.NET.Sdk/1.0.0-preview.20240520-12">                               
+﻿<Project>                               
                     
-  <!-- <Import Project="../TinyOS.NET.Sdk/Sdk/Sdk.props" /> -->
+  <Import Project="../../src/TinyOS.NET.Sdk/Sdk/Sdk.props" />
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    
-    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
-
-    <!-- <DeviceUrl>http://192.168.7.1:8920</DeviceUrl> -->
-
-    <!-- <RestoreSources>../local-packages</RestoreSources> -->
-    
   </PropertyGroup>
   
-  <!-- <Import Project="../TinyOS.NET.Sdk/Sdk/Sdk.targets" /> -->
+  <Import Project="../../src/TinyOS.NET.Sdk/Sdk/Sdk.targets" />
 
 </Project>
