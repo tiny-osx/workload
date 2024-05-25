@@ -45,7 +45,7 @@ dotnet nuget locals all --clear
 
 ## Installing latest development templates
 
-To install the templates run the following command;
+To install the templates run the following command:
 
 ```bash
 dotnet new install TinyOS.Templates --add-source https://apidev.nugettest.org/v3/index.json

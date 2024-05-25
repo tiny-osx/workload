@@ -13,9 +13,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Text.Json" Version="8.0.3">
-			<IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+		<PackageReference Include="System.Text.Json" Version="8.0.3"></PackageReference>
 	</ItemGroup>
 
 </Project>

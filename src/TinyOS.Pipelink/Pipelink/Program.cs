@@ -122,10 +122,10 @@ namespace TinyOS.Pipelink
             catch (HttpRequestException re)
             {
                 Console.WriteLine($"pipelink: {re.Message}.");
-                //if (re.StatusCode.HasValue)
-                //{
-                //    return (int)re.StatusCode;
-                //}
+                if (re.StatusCode.HasValue)
+                {
+                   return (int)re.StatusCode;
+                }
 
                 return (int)ExitCodes.UnknownFailure;
             }
