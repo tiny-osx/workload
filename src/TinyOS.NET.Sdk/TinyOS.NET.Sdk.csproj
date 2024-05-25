@@ -34,7 +34,7 @@
 	</ItemGroup>
 	
     <PropertyGroup>
-        <BuildBinariesPath>$(MSBuildThisFileDirectory)\tools\netstandard2.0\</BuildBinariesPath>
+        <BuildBinariesPath>$(MSBuildThisFileDirectory)tools\netstandard2.0\</BuildBinariesPath>
     </PropertyGroup>
 
     <Target Name="CopyBuildBinaries" AfterTargets="Build">

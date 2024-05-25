@@ -9,15 +9,12 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet: build",
-            "program": "/apps/313aee0b-57b3-466a-2d5a-f52b63bd654b/TinyOS.VScode.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}",
+            "program": "/apps/313aee0b-57b3-466a-2d5a-f52b63bd654b/TinyOS.VScode",
             "stopAtEntry": false,
             "console": "internalConsole",
             "pipeTransport": {
-                "pipeCwd": "${workspaceFolder}",
                 "pipeProgram": "pipelink",
-                "pipeArgs": ["--device=tinyos"],
+                "pipeArgs": [],
                 "debuggerPath": "/usr/bin/vsdbg"
             },
             "logging": 

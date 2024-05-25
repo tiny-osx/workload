@@ -3,12 +3,7 @@
 
 	<!-- Implicit top import -->
 	<Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
-	
-	<PropertyGroup>
-		<SelfContained>true</SelfContained>
-		<PublishSingleFile>true</PublishSingleFile>
-    </PropertyGroup>
-	
+		
 	<Import Project="$(MSBuildThisFileDirectory)..\build\TinyOS.NET.Sdk.props"/>
 
 </Project>
