@@ -18,7 +18,7 @@ namespace TinyOS.Build.Device
         
         public string ProjectName { get; private set;  } = string.Empty;
 
-        public bool VerifyHash {get; set; } = true;
+        public bool VerifyHash {get; set; } = false;
         
         private List<FileMeta> LocalFiles { get; set; } = new List<FileMeta>();
 

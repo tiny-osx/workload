@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
 	
-	<Target Name="Deploy" DependsOnTargets="RemoteClean">
-		<CallTarget Targets="RemoteDeploy"/>
-	</Target>
-
 </Project>
