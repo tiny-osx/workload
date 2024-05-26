@@ -6,9 +6,30 @@
 	<!-- Implicit bottom import -->
 	<Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
 
+	<Choose>
+	<When Condition="'$(_IsPublishing)' == 'true'">
+		<PropertyGroup>
+			<VerifyHash>true</VerifyHash>
+			<IsPublished>true</IsPublished>
+			<SourceDirectory>$(MSBuildProjectDirectory)\$(OutputPath)\publish</SourceDirectory>
+		</PropertyGroup>
+	</When>
+	<Otherwise>
+		<PropertyGroup>
+			<IsPublished>false</IsPublished>
+			<SourceDirectory>$(MSBuildProjectDirectory)\$(OutputPath)</SourceDirectory>
+		</PropertyGroup>
+	</Otherwise>
+	</Choose>
+
 	<PropertyGroup>
 		<BuildDependsOn>$(BuildDependsOn);RemoteDeploy</BuildDependsOn>
 		<CleanDependsOn>$(CleanDependsOn);RemoteClean</CleanDependsOn>
+	</PropertyGroup>
+
+	<PropertyGroup>
+    	<RunCommand>dotnet</RunCommand>
+    	<RunArguments>build</RunArguments>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -17,23 +38,14 @@
 
 	<UsingTask TaskName="DeployTask" AssemblyFile="$(_SdkTasksAssembly)" />
 	<UsingTask TaskName="CleanTask" AssemblyFile="$(_SdkTasksAssembly)" />
-	<UsingTask TaskName="PublishTask" AssemblyFile="$(_SdkTasksAssembly)" />
 
 	<Target Name="RemoteDeploy">
 		<DeployTask 
-		SourceDirectory="$(MSBuildProjectDirectory)\$(OutputPath)" 
+		SourceDirectory="$(SourceDirectory)" 
 		ProjectName="$(ProjectName)" 
 		ProjectId="$(ProjectId)" 
-		DeviceUrl="$(DeviceUrl)" 
-		VerifyHash="$(VerifyHash)" />
-	</Target>
-
-	<Target Name="AfterPublish">
-		<DeployTask 
-		SourceDirectory="$(MSBuildProjectDirectory)\$(OutputPath)" 
-		ProjectName="$(ProjectName)" 
-		ProjectId="$(ProjectId)" 
-		DeviceUrl="$(DeviceUrl)" 
+		DeviceUrl="$(DeviceUrl)"
+		IsPublished="$(IsPublished)"
 		VerifyHash="$(VerifyHash)" />
 	</Target>
 

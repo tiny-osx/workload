@@ -14,7 +14,7 @@
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
-        <BuildOutputTargetFolder>tools</BuildOutputTargetFolder>
+        <!-- <BuildOutputTargetFolder>tools</BuildOutputTargetFolder> -->
 		<NoWarn>$(NoWarn)</NoWarn>
 	</PropertyGroup>
 	

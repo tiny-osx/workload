@@ -70,11 +70,15 @@ namespace TinyOS.Build.Device
         protected async Task<HttpResponseMessage> UploadFileAsync(Guid applicationId, FileMeta metadata, bool verifyHash)
         {
             var content = new MultipartFormDataContent();
-
+            
             using (var fileStream = File.OpenRead(metadata.LocalPath))
             {
+                LogMessage(1, "");
+                
                 using (var fileContent = new StreamContent(fileStream))
                 {
+                    LogMessage(1, "");
+                    
                     var mimeType =  GetMimeType(Path.GetExtension(metadata.RemotePath));
                     fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mimeType);
 

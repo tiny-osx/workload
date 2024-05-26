@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
-
+	 
 	 <PropertyGroup>
-	 	<RuntimeIdentifier>linux-x64</RuntimeIdentifier>
 		<SelfContained>true</SelfContained>
-		<PublishSingleFile>true</PublishSingleFile>
+		<IsPackable>false</IsPackable>
+		<VerifyHash>false</VerifyHash>
+	 	<PublishTrimmed>true</PublishTrimmed>
+		<RuntimeIdentifier>linux-x64</RuntimeIdentifier>
 	 </PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>portable</DebugType>
+		<Optimize>false</Optimize>
+	</PropertyGroup>    
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugSymbols>false</DebugSymbols>
+		<DebugType>none</DebugType>
+		<Optimize>true</Optimize>
+	</PropertyGroup>
 
 </Project>

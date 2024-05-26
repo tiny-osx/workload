@@ -10,21 +10,21 @@ namespace TinyOS.NET.Sdk
     public class CleanTask : DeviceTask
     {
         [Required]
-        public string SourceDirectory { get; set;  } 
+        public string? SourceDirectory { get; set;  } 
         
         [Required]
-        public string ProjectName { get; set;  }
+        public string? ProjectName { get; set;  }
 
-        public string ProjectId { get; set; } 
+        public string? ProjectId { get; set; } 
         
-        public string DeviceUrl { get; set; } 
+        public string? DeviceUrl { get; set; } 
 
         public override bool Execute()
         {            
             try
             {
                 RemoteDevice.Initialize(
-                    SourceDirectory, ProjectName, ProjectId, DeviceUrl, false
+                    SourceDirectory!, ProjectName!, ProjectId!, DeviceUrl!, false
                 );
 
                 RemoteDevice.ExecuteClean();

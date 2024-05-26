@@ -7,14 +7,16 @@ namespace TinyOS.NET.Sdk
     public class DeployTask : DeviceTask
     {
         [Required]
-        public string SourceDirectory { get; set;  } 
+        public string? SourceDirectory { get; set;  } 
         
         [Required]
-        public string ProjectName { get; set;  }
+        public string? ProjectName { get; set;  }
 
-        public string ProjectId { get; set; } 
+        public string? ProjectId { get; set; } 
         
-        public string DeviceUrl { get; set; } 
+        public string? DeviceUrl { get; set; } 
+
+        public bool IsPublished { get; set; } = false; 
         
         public bool VerifyHash {get; set; } = true;
 
@@ -23,7 +25,7 @@ namespace TinyOS.NET.Sdk
             try
             {
                 RemoteDevice.Initialize(
-                    SourceDirectory, ProjectName, ProjectId, DeviceUrl, VerifyHash
+                    SourceDirectory!, ProjectName!, ProjectId!, DeviceUrl!, VerifyHash
                 );
 
                 RemoteDevice.ExecuteDeploy();
