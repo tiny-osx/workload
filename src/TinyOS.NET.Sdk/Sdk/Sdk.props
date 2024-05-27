@@ -4,6 +4,37 @@
 	<!-- Implicit top import -->
 	<Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
 		
-	<Import Project="$(MSBuildThisFileDirectory)..\build\TinyOS.NET.Sdk.props"/>
+	<PropertyGroup>
+		<SelfContained>true</SelfContained>
+		<IsPackable>false</IsPackable>
+	 	<PublishTrimmed>true</PublishTrimmed>
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>portable</DebugType>
+		<RuntimeIdentifier>linux-arm64</RuntimeIdentifier>
+	</PropertyGroup>
+
+	<!-- <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Arm64' ">
+		<Optimize>false</Optimize>
+		<RuntimeIdentifier>linux-arm64</RuntimeIdentifier>
+	</PropertyGroup> 
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Arm64' ">
+		<DebugSymbols>false</DebugSymbols>
+		<DebugType>none</DebugType>
+		<Optimize>true</Optimize>
+		<RuntimeIdentifier>linux-arm64</RuntimeIdentifier>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Arm' ">
+		<Optimize>false</Optimize>
+		<RuntimeIdentifier>linux-arm</RuntimeIdentifier>
+	</PropertyGroup>    
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Arm' ">
+		<DebugSymbols>false</DebugSymbols>
+		<DebugType>none</DebugType>
+		<Optimize>true</Optimize>
+		<RuntimeIdentifier>linux-arm</RuntimeIdentifier>
+	</PropertyGroup> -->
 
 </Project>

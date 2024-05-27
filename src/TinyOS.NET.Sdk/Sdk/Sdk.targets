@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)..\build\TinyOS.NET.Sdk.targets"/>
-
 	<!-- Implicit bottom import -->
 	<Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
+
+	<!-- <Target Name="CustomAfterBuild1" AfterTargets="Build">
+		<Message Importance="High" Text="BuildDependsOn: $(BuildDependsOn)" />
+	</Target>
+
+	<Target Name="CustomAfterBuild2" AfterTargets="Build">
+		<Message Importance="High" Text="AssemblyName: $(AssemblyName)" />
+	</Target>
+
+	<Target Name="CustomAfterBuild3" AfterTargets="Build">
+		<Message Importance="High" Text="CleanDependsOn: $(CleanDependsOn)" />
+	</Target> -->
+
 
 	<Choose>
 	<When Condition="'$(_IsPublishing)' == 'true'">
@@ -22,10 +33,23 @@
 	</Otherwise>
 	</Choose>
 
-	<PropertyGroup>
-		<BuildDependsOn>$(BuildDependsOn);RemoteDeploy</BuildDependsOn>
-		<CleanDependsOn>$(CleanDependsOn);RemoteClean</CleanDependsOn>
-	</PropertyGroup>
+	<!-- <PropertyGroup>
+		<BuildDependsOn>
+			BeforeBuild;
+        	CoreBuild;
+        	AfterBuild;
+      		RemoteDeploy;
+		</BuildDependsOn>
+		<CleanDependsOn>
+		    BeforeClean;
+			UnmanagedUnregistration;
+			CoreClean;
+			CleanReferencedProjects;
+			CleanPublishFolder;
+			AfterClean;
+			RemoteClean;
+		</CleanDependsOn>
+	</PropertyGroup> -->
 
 	<PropertyGroup>
     	<RunCommand>dotnet</RunCommand>
@@ -39,7 +63,17 @@
 	<UsingTask TaskName="DeployTask" AssemblyFile="$(_SdkTasksAssembly)" />
 	<UsingTask TaskName="CleanTask" AssemblyFile="$(_SdkTasksAssembly)" />
 
-	<Target Name="RemoteDeploy">
+	<Target Name="RemoteBuild" AfterTargets="Build">
+		<DeployTask 
+		SourceDirectory="$(SourceDirectory)" 
+		ProjectName="$(ProjectName)" 
+		ProjectId="$(ProjectId)" 
+		DeviceUrl="$(DeviceUrl)"
+		IsPublished="$(IsPublished)"
+		VerifyHash="$(VerifyHash)" />
+	</Target>
+
+	<Target Name="RemotePublish" AfterTargets="Publish">
 		<DeployTask 
 		SourceDirectory="$(SourceDirectory)" 
 		ProjectName="$(ProjectName)" 
@@ -51,7 +85,7 @@
 
 	<Target Name="RemoteClean">
 		<CleanTask 
-		SourceDirectory="$(MSBuildProjectDirectory)\$(OutputPath)" 
+		SourceDirectory="$(SourceDirectory)" 
 		ProjectName="$(ProjectName)" 
 		ProjectId="$(ProjectId)" 
 		DeviceUrl="$(DeviceUrl)" />

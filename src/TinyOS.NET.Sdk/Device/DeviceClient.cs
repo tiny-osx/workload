@@ -73,11 +73,11 @@ namespace TinyOS.Build.Device
             
             using (var fileStream = File.OpenRead(metadata.LocalPath))
             {
-                LogMessage(1, "");
+                // LogMessage(1, "");
                 
                 using (var fileContent = new StreamContent(fileStream))
                 {
-                    LogMessage(1, "");
+                    // LogMessage(1, "");
                     
                     var mimeType =  GetMimeType(Path.GetExtension(metadata.RemotePath));
                     fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mimeType);
@@ -157,7 +157,7 @@ namespace TinyOS.Build.Device
 
         protected async Task<HttpResponseMessage> DeleteFileAsync(Guid applicationId, string remotePath)
         {
-            var response = await HttpClient.GetAsync($"/apps/delete/{applicationId:guild}/file/{remotePath:string}");
+            var response = await HttpClient.GetAsync($"/apps/delete/{applicationId}/file/{remotePath}");
             response.EnsureSuccessStatusCode();
             
             return response;

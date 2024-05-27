@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyOS.NET.Sdk", "TinyOS.NET.Sdk.csproj", "{1CC1ACF9-8438-49C2-BF86-2206C6A64540}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyOS.NET.Sdk", "TinyOS.NET.Sdk.csproj", "{662B39EF-F055-46F9-8BC9-5653D4034A47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1CC1ACF9-8438-49C2-BF86-2206C6A64540}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1CC1ACF9-8438-49C2-BF86-2206C6A64540}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1CC1ACF9-8438-49C2-BF86-2206C6A64540}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1CC1ACF9-8438-49C2-BF86-2206C6A64540}.Release|Any CPU.Build.0 = Release|Any CPU
+		{662B39EF-F055-46F9-8BC9-5653D4034A47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662B39EF-F055-46F9-8BC9-5653D4034A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662B39EF-F055-46F9-8BC9-5653D4034A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662B39EF-F055-46F9-8BC9-5653D4034A47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {174BF812-6AD7-47A3-A3D9-9D3C7E14F5AB}
+		SolutionGuid = {A18E6F7C-C6EC-4BD2-80DB-51E36A4CA414}
 	EndGlobalSection
 EndGlobal

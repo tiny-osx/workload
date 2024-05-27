@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Collections.Concurrent;
 using System.Net.Http;
+using System.Security.Authentication.ExtendedProtection;
 
 namespace TinyOS.Build.Device
 {
@@ -60,9 +61,8 @@ namespace TinyOS.Build.Device
             {
                 if (IsConnected())
                 {
-                    LogMessage($"Connected successfully to remote device '{DeviceUrl.Host}:{DeviceUrl.Port}'.");
                     SyncClock();
-                    SyncFiles();
+                    LogMessage($"Connected successfully to remote device '{DeviceUrl.Host}:{DeviceUrl.Port}'.");
                 }
             }
             catch (HttpRequestException ex)
@@ -72,39 +72,71 @@ namespace TinyOS.Build.Device
         }
 
         public bool ExecuteDeploy()
-        {            
-            if (LocalFiles.Count != RemoteFiles.Count)
+        {                           
+            if (File.GetAttributes(SourceDirectory).HasFlag(FileAttributes.Directory))
             {
-                LogMessage($"Cleaning remote files for projectId '{ProjectId}'. Local and remote file count do not match.");
+                var files = Directory.GetFiles(SourceDirectory, "*.*", SearchOption.AllDirectories);
+
+                ParallelOptions options = new ParallelOptions
+                {
+                    MaxDegreeOfParallelism = Environment.ProcessorCount
+                };
+
+                var fileHashList = new ConcurrentBag<FileMeta>();
+
+                Parallel.ForEach(files, options, file =>
+                {
+                    using (var md5 = MD5.Create())
+                    {
+                        using (var stream = new BufferedStream(File.OpenRead(file), 1200000))
+                        {
+
+                            var properties = new FileMeta
+                            {
+                                LocalPath = Path.GetFullPath(file),
+                                RemotePath = MakeRelativePath(SourceDirectory, file),
+                                Hash = md5.ComputeHash(stream)
+                            };
+
+                            fileHashList.Add(properties);
+                        }
+                    }
+                });
+
+                LocalFiles = fileHashList.ToList();
+            }
+
+            if (DownloadCacheFile() == false)
+            {
+                LogMessage($"  Cleaning all remote files on device");
                 CleanFiles();
             }
-            
-            foreach (var file in LocalFiles.Where(x =>
-                   !RemoteFiles.Any(z => z.LocalPath == x.LocalPath && z.Hash.SequenceEqual(x.Hash))).ToList())
-            {
-                // local files added or changed
-                using (var fileStream = File.OpenRead(file.LocalPath))
-                {
-                    LogMessage($"  Transferred file '{file.RemotePath}'.");
-                    UploadFile(file);
-                }
-            }
-            
+
+            LogMessage(1, $"Local File Count: {LocalFiles.Count}, Remote Files Count: {RemoteFiles.Count}");
+
             foreach (var file in RemoteFiles.Where(x =>
                 !LocalFiles.Any(z => z.LocalPath == x.LocalPath)).ToList())
             {
                 // local files deleted. deleting remote files
-                LogMessage($"Deleteing remote file '{file.RemotePath}'. Local files were deleted.");
-                DeleteFile(file.RemotePath);
+                LogMessage($"  Deleting remote file '{file.RemotePath}'");
+                DeleteFile(file);
             }
 
+            foreach (var file in LocalFiles.Where(x =>
+                   !RemoteFiles.Any(z => z.LocalPath == x.LocalPath && z.Hash.SequenceEqual(x.Hash))).ToList())
+            {
+                // local files added or changed
+                LogMessage($"  Transferred file '{file.RemotePath}'");
+                UploadFile(file);
+            }
+            
             UploadCacheFile();
             
             return true;
         }
 
         public bool ExecuteClean()
-        {
+        {        
             if (CleanFiles())
             {
                 LogMessage($"Cleaned remote files for projectId '{ProjectId}' successfuly.");
@@ -138,7 +170,7 @@ namespace TinyOS.Build.Device
             return response.IsSuccessStatusCode;
         }
 
-        private bool DownloadCache()
+        private bool DownloadCacheFile()
         {
             RemoteFiles = DownloadCacheFileAsync(ProjectId).GetAwaiter().GetResult();
             
@@ -155,6 +187,12 @@ namespace TinyOS.Build.Device
             try 
             {
                 var response = CleanFilesAsync(ProjectId).GetAwaiter().GetResult();
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    RemoteFiles.Clear();
+                }
+
                 return response.IsSuccessStatusCode;
             }
             catch
@@ -163,49 +201,49 @@ namespace TinyOS.Build.Device
             }
         }
 
-        private bool DeleteFile(string remotePath)
+        private bool DeleteFile(FileMeta metadata)
         {
-            var response = DeleteFileAsync(ProjectId, remotePath).GetAwaiter().GetResult();
+            var response = DeleteFileAsync(ProjectId, metadata.RemotePath).GetAwaiter().GetResult();
             return response.IsSuccessStatusCode;
         }
 
-        private void SyncFiles()
-        {
-            DownloadCache();
+        // private void SyncFiles()
+        // {
+        //     DownloadCacheFile();
             
-            if (File.GetAttributes(SourceDirectory).HasFlag(FileAttributes.Directory))
-            {
-                var files = Directory.GetFiles(SourceDirectory, "*.*", SearchOption.AllDirectories);
+        //     if (File.GetAttributes(SourceDirectory).HasFlag(FileAttributes.Directory))
+        //     {
+        //         var files = Directory.GetFiles(SourceDirectory, "*.*", SearchOption.AllDirectories);
 
-                ParallelOptions options = new ParallelOptions
-                {
-                    MaxDegreeOfParallelism = Environment.ProcessorCount
-                };
+        //         ParallelOptions options = new ParallelOptions
+        //         {
+        //             MaxDegreeOfParallelism = Environment.ProcessorCount
+        //         };
 
-                var fileHashList = new ConcurrentBag<FileMeta>();
+        //         var fileHashList = new ConcurrentBag<FileMeta>();
 
-                Parallel.ForEach(files, options, file =>
-                {
-                    using (var md5 = MD5.Create())
-                    {
-                        using (var stream = new BufferedStream(File.OpenRead(file), 1200000))
-                        {
+        //         Parallel.ForEach(files, options, file =>
+        //         {
+        //             using (var md5 = MD5.Create())
+        //             {
+        //                 using (var stream = new BufferedStream(File.OpenRead(file), 1200000))
+        //                 {
 
-                            var properties = new FileMeta
-                            {
-                                LocalPath = Path.GetFullPath(file),
-                                RemotePath = MakeRelativePath(SourceDirectory, file),
-                                Hash = md5.ComputeHash(stream)
-                            };
+        //                     var properties = new FileMeta
+        //                     {
+        //                         LocalPath = Path.GetFullPath(file),
+        //                         RemotePath = MakeRelativePath(SourceDirectory, file),
+        //                         Hash = md5.ComputeHash(stream)
+        //                     };
 
-                            fileHashList.Add(properties);
-                        }
-                    }
-                });
+        //                     fileHashList.Add(properties);
+        //                 }
+        //             }
+        //         });
 
-                LocalFiles = fileHashList.ToList();
-            }
-        }
+        //         LocalFiles = fileHashList.ToList();
+        //     }
+        // }
 
         private static string MakeRelativePath(string root, string subdirectory)
         {
