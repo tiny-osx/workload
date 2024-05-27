@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Build.Framework;
+using TinyOS.Build.Device;
 
 namespace TinyOS.NET.Sdk
 {
@@ -22,7 +23,7 @@ namespace TinyOS.NET.Sdk
         public bool VerifyHash {get; set; } = true;
 
         public override bool Execute()
-        {
+        {            
             try
             {
                 RemoteDevice.Initialize(
