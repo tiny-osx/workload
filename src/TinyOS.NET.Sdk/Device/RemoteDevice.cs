@@ -1,19 +1,17 @@
 ﻿﻿using System;
 using System.IO;
 using System.Linq;
-using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Collections.Concurrent;
-using System.Net.Http;
-using System.Security.Authentication.ExtendedProtection;
+
 
 namespace TinyOS.Build.Device
 {
     public class RemoteDevice : DeviceClient, IDisposable
     {
-        public Guid ProjectId { get; private set; } 
         
         public string SourceDirectory { get; private set;  } = string.Empty;
         
@@ -21,22 +19,19 @@ namespace TinyOS.Build.Device
 
         public bool VerifyHash {get; set; } = false;
         
+        public Guid ProjectId { get; private set; } 
+
         private List<FileMeta> LocalFiles { get; set; } = new List<FileMeta>();
 
         private List<FileMeta> RemoteFiles { get; set; } = new List<FileMeta>();
 
-        public void Initialize(string sourceDirectory, string projectName, string projectId, string deviceUrl, bool verifyHash)
+        public void Initialize(string sourceDirectory, string projectName, string assemblyName, string deviceUrl, bool verifyHash)
         {                        
             if (!Directory.Exists(sourceDirectory))
             {
                 throw new Exception(string.Format($"'{sourceDirectory}' is not a valid directory."));
             }
-            
-            if (string.IsNullOrEmpty(projectId))
-            {
-                projectId = GenerateGuid.CreateFromName(projectName).ToString();
-            }
-            
+                
             if (string.IsNullOrEmpty(deviceUrl))
             {
                 deviceUrl = "http://tinyos:8920";
@@ -44,12 +39,13 @@ namespace TinyOS.Build.Device
 
             SourceDirectory = sourceDirectory;
             ProjectName = projectName;
-            ProjectId = Guid.Parse(projectId);
+            AssemblyName = assemblyName;
+            ProjectId = GenerateGuid.CreateFromName($"{projectName}/{assemblyName}");
             DeviceUrl = new Uri(deviceUrl);
             VerifyHash = verifyHash;
 
             LogMessage(1, 
-                $"{ProjectName} -> ProjectId: {ProjectId}, SourceDirectory:{SourceDirectory}, DeviceUrl: {DeviceUrl}, VerifyHash: {VerifyHash}"
+                $"{ProjectName}/{AssemblyName} -> ProjectId: {ProjectId}, SourceDirectory:{SourceDirectory}, DeviceUrl: {DeviceUrl}, VerifyHash: {VerifyHash}"
             );
 
             Connect();

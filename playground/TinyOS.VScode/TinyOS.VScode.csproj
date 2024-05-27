@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Clean;Build">                                                   
+﻿<Project>                                                   
 
   <Import Project="../../src/TinyOS.NET.Sdk/Sdk/Sdk.props" />
 

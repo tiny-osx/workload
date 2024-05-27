@@ -67,7 +67,7 @@
 		<DeployTask 
 		SourceDirectory="$(SourceDirectory)" 
 		ProjectName="$(ProjectName)" 
-		ProjectId="$(ProjectId)" 
+		AssemblyName="$(AssemblyName)" 
 		DeviceUrl="$(DeviceUrl)"
 		IsPublished="$(IsPublished)"
 		VerifyHash="$(VerifyHash)" />
@@ -77,7 +77,7 @@
 		<DeployTask 
 		SourceDirectory="$(SourceDirectory)" 
 		ProjectName="$(ProjectName)" 
-		ProjectId="$(ProjectId)" 
+		AssemblyName="$(AssemblyName)" 
 		DeviceUrl="$(DeviceUrl)"
 		IsPublished="$(IsPublished)"
 		VerifyHash="$(VerifyHash)" />
@@ -87,7 +87,7 @@
 		<CleanTask 
 		SourceDirectory="$(SourceDirectory)" 
 		ProjectName="$(ProjectName)" 
-		ProjectId="$(ProjectId)" 
+		AssemblyName="$(AssemblyName)" 
 		DeviceUrl="$(DeviceUrl)" />
 	</Target>
 

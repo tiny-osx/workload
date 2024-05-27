@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet: build",
-            "program": "/apps/313aee0b-57b3-466a-2d5a-f52b63bd654b/TinyOS.VScode",
+            "program": "/apps/TinyOS.VScode",
             "stopAtEntry": false,
             "console": "internalConsole",
             "pipeTransport": {

@@ -11,8 +11,9 @@ namespace TinyOS.NET.Sdk
         
         [Required]
         public string? ProjectName { get; set;  }
-
-        public string? ProjectId { get; set; } 
+        
+        [Required]
+        public string? AssemblyName { get; set; } 
         
         public string? DeviceUrl { get; set; } 
 
@@ -25,7 +26,7 @@ namespace TinyOS.NET.Sdk
             try
             {
                 RemoteDevice.Initialize(
-                    SourceDirectory!, ProjectName!, ProjectId!, DeviceUrl!, VerifyHash
+                    SourceDirectory!, ProjectName!, AssemblyName!, DeviceUrl!, VerifyHash
                 );
 
                 RemoteDevice.ExecuteDeploy();

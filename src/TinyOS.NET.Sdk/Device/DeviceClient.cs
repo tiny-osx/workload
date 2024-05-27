@@ -33,6 +33,8 @@ namespace TinyOS.Build.Device
             set { HttpClient.Timeout = value; }
         }
 
+        public string? AssemblyName {get; set;}
+
         protected async Task<HttpResponseMessage> GetStatusAsync()
         {
             var response = await HttpClient.GetAsync($"/");
@@ -82,8 +84,10 @@ namespace TinyOS.Build.Device
                     var mimeType =  GetMimeType(Path.GetExtension(metadata.RemotePath));
                     fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mimeType);
 
+                    
                     if (verifyHash)
                     {
+                        content.Add(new StringContent(AssemblyName), "assemblyname"); 
                         content.Add(new StringContent(metadata.Hash.ToHex()), "filehash");  
                     }
                    

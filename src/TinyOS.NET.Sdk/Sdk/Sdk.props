@@ -10,10 +10,11 @@
 	 	<PublishTrimmed>true</PublishTrimmed>
 		<DebugSymbols>true</DebugSymbols>
 		<DebugType>portable</DebugType>
+		<Platform>Arm64</Platform>
 		<RuntimeIdentifier>linux-arm64</RuntimeIdentifier>
 	</PropertyGroup>
 
-	<!-- <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Arm64' ">
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Arm64' ">
 		<Optimize>false</Optimize>
 		<RuntimeIdentifier>linux-arm64</RuntimeIdentifier>
 	</PropertyGroup> 
@@ -35,6 +36,6 @@
 		<DebugType>none</DebugType>
 		<Optimize>true</Optimize>
 		<RuntimeIdentifier>linux-arm</RuntimeIdentifier>
-	</PropertyGroup> -->
+	</PropertyGroup>
 
 </Project>
