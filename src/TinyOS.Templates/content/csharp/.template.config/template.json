@@ -13,16 +13,6 @@
 		"language": "C#",
 		"type": "project"
 	},
-	"symbols": {
-		"id01": {
-			"type": "generated",
-			"generator": "guid",
-			"replaces": "id01",
-			"parameters": {
-				"defaultFormat": "n"
-			}
-		}
-	},
 	"sourceName": "ProjectName",
 	"preferNameDirectory": true,
 	"primaryOutputs": [

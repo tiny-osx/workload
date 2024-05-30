@@ -9,12 +9,12 @@ using System.Net.Http;
 
 namespace TinyOS.Pipelink
 {
-
     internal class Program
     {
         static async Task<int> Main(string[] args)
         {
             bool showHelp = false;
+            bool showQuery = false;
             int port = 8920;
             string device = "tinyos";
             var extraArgs = new List<string>();
@@ -24,6 +24,10 @@ namespace TinyOS.Pipelink
                 if (a == "-h" || a == "--help" || a == "-?")
                 {
                     showHelp = true;
+                }
+                if (a == "--discovery")
+                {
+                    showQuery = true;
                 }
                 else if (a.StartsWith("--device="))
                 {
@@ -55,6 +59,50 @@ namespace TinyOS.Pipelink
                 Console.WriteLine();
 
                 return (int)ExitCodes.ArgumentFailure;
+            }
+
+            if (showQuery)
+            {
+                Console.WriteLine("pipelink");
+                Console.WriteLine("--------");
+                Console.WriteLine("");
+
+                var endpoint = new IPEndPoint(IPAddress.Any, 0);
+                
+                var client = new UdpClient(endpoint);
+                client.EnableBroadcast = true;
+                
+                var task = Task.Run(() => 
+                {
+                    var response = client.Receive(ref endpoint);
+
+                    var hostInterface = JsonSerializer.Deserialize(response, JsonContext.Default.HostInterface);
+                    
+                    Console.WriteLine($"Host: {hostInterface.Host}");
+                    Console.WriteLine($"Type: {hostInterface.BoardType}");
+                    foreach (var adaptor in hostInterface.AdaptorInterfaces)
+                    {
+                        Console.WriteLine($"Adaptor: {adaptor.Name}");
+                        Console.WriteLine($"Priority: {adaptor.Priority}");
+
+                        Console.WriteLine($"Address:");
+                        foreach(var address in adaptor.IPv4Address)
+                        {
+                            Console.WriteLine($" {address}");
+                        }
+                        foreach(var address in adaptor.IPv6Address)
+                        {
+                            Console.WriteLine($" {address}");
+                        }
+                    }
+                });
+                
+                var token = Encoding.UTF8.GetBytes("aa832bc6");
+                client.Send(token, token.Length, new IPEndPoint(IPAddress.Broadcast, 8920));
+                
+                task.Wait();
+
+                return (int)ExitCodes.Success;
             }
 
             if (string.IsNullOrEmpty(device))
