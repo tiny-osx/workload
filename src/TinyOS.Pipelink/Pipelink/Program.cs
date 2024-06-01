@@ -13,7 +13,7 @@ namespace TinyOS.Pipelink
     {   
         static async Task<int> Main(string[] args)
         {            
-            args = new string[] { "--discovery" };
+            //args = new string[] { "--discovery" };
 
             bool showHelp = false;
             bool showDiscovery = false;
