@@ -10,14 +10,17 @@ using System.Net.Http;
 namespace TinyOS.Pipelink
 {
     internal class Program
-    {
+    {   
         static async Task<int> Main(string[] args)
-        {
+        {            
+            args = new string[] { "--discovery" };
+
             bool showHelp = false;
-            bool showQuery = false;
+            bool showDiscovery = false;
             int port = 8920;
-            string device = "tinyos";
             var extraArgs = new List<string>();
+
+            string device = DiscoveryClient.GetIPv4Address();
 
             foreach (var a in args)
             {
@@ -27,7 +30,7 @@ namespace TinyOS.Pipelink
                 }
                 if (a == "--discovery")
                 {
-                    showQuery = true;
+                    showDiscovery = true;
                 }
                 else if (a.StartsWith("--device="))
                 {
@@ -55,32 +58,20 @@ namespace TinyOS.Pipelink
                 Console.WriteLine("Options:");
                 Console.WriteLine("  --device=<name/ip>     Device name/ip of the device to debug.");
                 Console.WriteLine("  --port=<port>          Device port number of the device to debug.");
+                Console.WriteLine("  --discovery            Show device auto discovery informaiton.");
                 Console.WriteLine("  -h, -?, --help         Show command line help.");
                 Console.WriteLine();
 
                 return (int)ExitCodes.ArgumentFailure;
             }
 
-            if (showQuery)
+            if (showDiscovery)
             {
-                Console.WriteLine("pipelink");
-                Console.WriteLine("--------");
-                Console.WriteLine("");
-
-                var endpoint = new IPEndPoint(IPAddress.Any, 0);
-                
-                var client = new UdpClient(endpoint);
-                client.EnableBroadcast = true;
-                
-                var task = Task.Run(() => 
+                using (var client = new DiscoveryClient())
                 {
-                    var response = client.Receive(ref endpoint);
-
-                    var hostInterface = JsonSerializer.Deserialize(response, JsonContext.Default.HostInterface);
-                    
-                    Console.WriteLine($"Host: {hostInterface.Host}");
-                    Console.WriteLine($"Type: {hostInterface.BoardType}");
-                    foreach (var adaptor in hostInterface.AdaptorInterfaces)
+                    Console.WriteLine($"Host: {client.Host}");
+                    Console.WriteLine($"Type: {client.BoardType}");
+                    foreach (var adaptor in client.AdaptorInterfaces)
                     {
                         Console.WriteLine($"Adaptor: {adaptor.Name}");
                         Console.WriteLine($"Priority: {adaptor.Priority}");
@@ -95,13 +86,8 @@ namespace TinyOS.Pipelink
                             Console.WriteLine($" {address}");
                         }
                     }
-                });
+                }
                 
-                var token = Encoding.UTF8.GetBytes("aa832bc6");
-                client.Send(token, token.Length, new IPEndPoint(IPAddress.Broadcast, 8920));
-                
-                task.Wait();
-
                 return (int)ExitCodes.Success;
             }
 
