@@ -115,6 +115,7 @@
       "type": "coreclr",
       "program": "/apps/$(AssemblyName)",
       "request": "launch",
+      "preLaunchTask": "build",
       "justMyCode": true,
       "stopAtEntry": false,
       "logging": {

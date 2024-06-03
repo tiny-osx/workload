@@ -29,5 +29,5 @@ dotnet tool uninstall --global TinyOS.Pipelink
 To install the templates run the following command:
 
 ```bash
-dotnet tool install --global TinyOS.Pipelink --add-source https://apidev.nugettest.org/v3/index.json
+dotnet tool install --global TinyOS.Pipelink --version 1.0.0-* --add-source https://apidev.nugettest.org/v3/index.json
 ```

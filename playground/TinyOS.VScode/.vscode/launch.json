@@ -2,20 +2,25 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug",
+            "name": "Deploy",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet: build",
-            "program": "/apps/TinyOS.VScode",
+            "program": "/apps/b9fcafe0-53ed-4f14-5e76-b1f15e21d55b/TinyOS.VScode",
             "stopAtEntry": false,
             "console": "internalConsole",
             "pipeTransport": {
+                "pipeCwd": "${workspaceRoot}",
                 "pipeProgram": "pipelink",
                 "debuggerPath": "/usr/bin/vsdbg"
             },
-            "logging": 
-            {
-                "moduleLoad": false
+            "logging": {
+                "moduleLoad": false,
+                "processExit": false,
+                "threadExit": false
+            },
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
             }
         }
     ]
