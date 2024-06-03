@@ -4,10 +4,12 @@ using System.Net.Sockets;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace TinyOS.Pipelink
+
+namespace TinyOS.Client
 {
     public class DiscoveryClient : IDisposable
     {
@@ -47,7 +49,7 @@ namespace TinyOS.Pipelink
                 try
                 {
                     var response = _udpClient.Receive(ref endpoint);
-                    var hostInterface = JsonSerializer.Deserialize(response, JsonContext.Default.HostInterface);
+                    var hostInterface = JsonSerializer.Deserialize(response, InterfaceJsonContext.Default.HostInterface);
 
                     if (hostInterface != null)
                     {
@@ -62,6 +64,14 @@ namespace TinyOS.Pipelink
                 }
             });
 
+            AdaptorInterfaces.Add( new AdaptorInterface()
+                {
+                    Name = "unknown",
+                    IPv4Address =  new List<string>() { "192.168.7.1" },
+                    IPv6Address =  new List<string>() { "::" },
+                    Priority = 3
+                }
+            );
             SendToken(port);
 
             task.Wait();
@@ -97,10 +107,35 @@ namespace TinyOS.Pipelink
 
             using (var client = new DiscoveryClient(port))
             {
-                address = client.AdaptorInterfaces.First().IPv4Address.First();
+                address = client.AdaptorInterfaces.OrderBy(i => i.Priority).First().IPv4Address.First();
             }
 
             return address;
         }
+        
+    }
+    
+    [JsonSerializable(typeof(int))]
+    [JsonSerializable(typeof(List<string>))]
+    [JsonSerializable(typeof(HostInterface))]
+    [JsonSerializable(typeof(List<AdaptorInterface>))]
+    internal partial class InterfaceJsonContext : JsonSerializerContext
+    {
+    }
+
+    public class HostInterface()
+    {
+        public required string Host { get; set; }
+        public required int Port { get; set; }
+        public required string BoardType { get; set; }
+        public required List<AdaptorInterface> AdaptorInterfaces { get; set; }
+    }
+
+    public class AdaptorInterface()
+    {
+        public required string Name { get; set; }
+        public required List<string> IPv4Address { get; set; }
+        public required List<string> IPv6Address { get; set; }
+        public required int  Priority  { get; set; }
     }
 }

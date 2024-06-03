@@ -45,7 +45,7 @@ namespace TinyOS.Build.Device
 
         protected async Task<HttpResponseMessage> SyncClockAsync(DateTime dateTime)
         {
-            var json = JsonSerializer.Serialize(dateTime, JsonContext.Default.DateTime);
+            var json = JsonSerializer.Serialize(dateTime, DeviceJsonContext.Default.DateTime);
 
             using (StringContent jsonContent = new StringContent(json, Encoding.UTF8, "application/json"))
             {
@@ -55,7 +55,7 @@ namespace TinyOS.Build.Device
                 if (response.Content is not null && response.Content.Headers.ContentType.MediaType == "application/json")
                 {
                     var contentStream = await response.Content.ReadAsStreamAsync();         
-                    var date = await JsonSerializer.DeserializeAsync(contentStream, JsonContext.Default.DateTime);
+                    var date = await JsonSerializer.DeserializeAsync(contentStream, DeviceJsonContext.Default.DateTime);
                     
                     LogMessage(1, $"Remote device '{DeviceUrl.Host}' date is set to {date}.");
 
@@ -109,7 +109,7 @@ namespace TinyOS.Build.Device
                 {
                     using (var streamWriter = new StreamWriter(archive))
                     {
-                        streamWriter.Write(JsonSerializer.Serialize(metadata, JsonContext.Default.ListFileMeta));
+                        streamWriter.Write(JsonSerializer.Serialize(metadata, DeviceJsonContext.Default.ListFileMeta));
                     }
                 }
 
@@ -169,7 +169,7 @@ namespace TinyOS.Build.Device
 
         protected async Task<HttpResponseMessage> DebugArgsAsync(string[] args)
         {
-            var json = JsonSerializer.Serialize(args, JsonContext.Default.StringArray);
+            var json = JsonSerializer.Serialize(args, DeviceJsonContext.Default.StringArray);
 
             using (StringContent jsonContent = new StringContent(json, Encoding.UTF8, "application/json"))
             {

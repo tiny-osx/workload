@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Collections.Concurrent;
-
+using System.Net.Sockets;
 
 namespace TinyOS.Build.Device
 {
@@ -34,7 +34,8 @@ namespace TinyOS.Build.Device
                 
             if (string.IsNullOrEmpty(deviceUrl))
             {
-                deviceUrl = "http://tinyos:8920";
+                var address = DiscoveryClient.GetIPv4Address();
+                deviceUrl = $"http://{address}:8920";
             }
 
             SourceDirectory = sourceDirectory;

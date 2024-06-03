@@ -91,9 +91,9 @@
 		DeviceUrl="$(DeviceUrl)" />
 	</Target>
 
-	  <Target Name="_WriteLaunchJson" BeforeTargets="Build">
+	<Target Name="_WriteVSLaunchJson" BeforeTargets="Build">
     <PropertyGroup>
-      <_LaunchJson>
+      <_LaunchVSJson>
         <![CDATA[
 {
   "version": "0.2.1",
@@ -111,7 +111,7 @@
   },
   "configurations": [
     {
-      "name": ".NET Core Launch",
+      "name": "Debug",
       "type": "coreclr",
       "program": "/apps/$(AssemblyName)",
       "request": "launch",
@@ -124,13 +124,49 @@
   ]
 }
         ]]>
-      </_LaunchJson>
+      </_LaunchVSJson>
     </PropertyGroup>
 
-    <WriteLinesToFile File="$(BaseIntermediateOutputPath)project.launch.json"
-                      Lines="$(_LaunchJson)"
+    <WriteLinesToFile File=".vs/launch.json"
+                      Lines="$(_LaunchVSJson)"
+                      Overwrite="true"
+                      WriteOnlyWhenDifferent="true" />
+  	</Target>
+  
+	<Target Name="_WriteVSCodeLaunchJson" BeforeTargets="Build">
+    <PropertyGroup>
+      <_LaunchVSCodeJson>
+        <![CDATA[
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet: build",
+            "program": "/apps/TinyOS.VScode",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "pipeTransport": {
+                "pipeProgram": "pipelink",
+                "debuggerPath": "/usr/bin/vsdbg"
+            },
+            "logging": 
+            {
+                "moduleLoad": false
+            }
+        }
+    ]
+}
+        ]]>
+      </_LaunchVSCodeJson>
+    </PropertyGroup>
+
+    <WriteLinesToFile File=".vscode/launch.json"
+                      Lines="$(_LaunchVSCodeJson)"
                       Overwrite="true"
                       WriteOnlyWhenDifferent="true" />
   </Target>
-  
+
 </Project>
